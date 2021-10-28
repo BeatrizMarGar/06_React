@@ -1,7 +1,8 @@
 import './App.css';
+import Layout from './components/layout/layout';
 
 function App() {
-  return <div className="app">Welcome to React Twitter!</div>;
+  return <Layout />;
 }
 
 export default App;
