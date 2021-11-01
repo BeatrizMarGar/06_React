@@ -1,9 +1,10 @@
-function Ad({}){
+function Ad({...ad}){
+    console.log(ad.name)
     return (
         <div>
-            <h1>Titulo</h1>
-            <p>Descripcion</p>
-            <p>Precio</p>
+            <h1>{ad.name}</h1>
+            <p>{ad.description}</p>
+            <p>{ad.price}</p>
         </div>
     )
 }

@@ -1,14 +1,15 @@
 import Footer from "./footer";
 import Header from "./header";
-import Ads from "./ads";
 import Categories from "./categories";
 
-function Layout ({}) {
+function Layout ({children}) {
     return (
         <div classname="layout">
             <Header />
             <Categories />
-            <Ads />
+            <main>
+                <section>{children}</section>
+            </main>
             <Footer className="" />
         </div>
     ); 

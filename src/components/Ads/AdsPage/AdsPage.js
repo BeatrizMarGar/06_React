@@ -8,10 +8,10 @@ function ShowAllAds({history, ...prop}){
     const [ads, setAds] = useState([])
     useEffect(()=> {
         AllAds().then(ads => setAds(ads))
-        console.log(ads)
-    })
+    }, [])
+    console.log(ads)
     return (
-        <Layout>
+        <Layout {...props}>
             <ul>
                 {ads.map(({id, ...ad}) => (
                     <li key={id}>
