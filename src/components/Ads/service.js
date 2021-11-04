@@ -2,10 +2,9 @@
 
 import client from "../../api/client";
 
-const BaseURL = '/api'
+const BaseURL = '/api/v1'
 
 export const AllAds = () => {
-    //const url = `${BaseURL}/ads`
-    const url = `http://localhost:8000/api/ads`
+    const url = `${BaseURL}/adverts`
     return client.get(url)
 }

@@ -2,8 +2,8 @@ import axios from 'axios'
 //Axios permite usar Ajax y consumir APIs
 
 const client = axios.create({
-    //dbURL: process.env.REACT_API_URL,
-    dbURL: `https://localhost:8000`
+    //dbURL: process.env.REACT_APP_API_BASE_URL,
+   dbURL: `https://localhost:3001`
 })
 
 //interceptors: funciones que llama axios en cada request
@@ -20,7 +20,7 @@ client.interceptors.response.use(
         })
     },
 )
-/*
+
 export const setAuthHeader = token => {
     client.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
@@ -28,7 +28,7 @@ export const setAuthHeader = token => {
 export const removeAuthHeader = () => {
     delete client.defaults.headers.common['Authorization']
 }
-*/
+
 export default client;
 
 // todo se utiliza en un servicio para autorizar usuarios
