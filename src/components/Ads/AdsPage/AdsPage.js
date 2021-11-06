@@ -7,18 +7,19 @@ import Ad from "../ad";
 function ShowAllAds({isLogged, history, ...prop}){
     const [ads, setAds] = useState([])
     useEffect(()=> {
-        AllAds().then(ads => setAds(ads))
+        AllAds().then(setAds)
     }, [])
-    console.log(ads)
     return (
         <Layout>
-            <ul>
-                {ads.map(({id, ...ad}) => (
-                    <li key={id}>
-                        <Ad {...ad} />
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <ul>
+                    {ads.map(({id, ...ad}) => (
+                        <li key={id}>
+                            <Ad {...ad}/>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </Layout>
     )
 }

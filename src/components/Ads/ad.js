@@ -1,10 +1,10 @@
 function Ad({...ad}){
-    console.log(ad.name)
+    console.log(ad.sale)
     return (
         <div>
-            <h1>{ad.name}</h1>
-            <p>{ad.description}</p>
-            <p>{ad.price}</p>
+            <h1>anuncio</h1>
+            <h1>{ad.sale ? 'se vende' : 'se busca'}</h1>
+            <h1>{ad.price}</h1>
         </div>
     )
 }

@@ -2,13 +2,13 @@ import { login } from "../service";
 import { useState, useMemo } from "react";
 import FormField from "../../common/formField";
 
-function LoginPage({onLogin}){
+function LoginPage({onLogin, isLogged}){
    // function LoginPage({onLogin, location, history}){
     // declaro los cambios en usuario y contraseña
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(onLogin)
+    console.log(isLogged)
     
     const handleChange = event => {
         setValue(prevState => ({
@@ -26,13 +26,13 @@ function LoginPage({onLogin}){
         try {
             await login(value);
             setIsLoading(false);
-            onLogin = true
+            onLogin()
          // const { from } = location.state || { from: { pathname: '/' } };
          // history.replace(from);
           
         } catch (error) {
             console.log(error)
-            onLogin = false
+            isLogged = false
             
          // setError(error);
          setIsLoading(false);
