@@ -7,8 +7,7 @@ function LoginPage({onLogin, isLogged}){
     // declaro los cambios en usuario y contraseña
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
-
-    console.log(isLogged)
+    const [check, isChecked] = useState(false)
     
     const handleChange = event => {
         setValue(prevState => ({
@@ -24,7 +23,8 @@ function LoginPage({onLogin, isLogged}){
         //resetError();
         
         try {
-            await login(value);
+            await login(value, check);
+            alert(value, check)
             setIsLoading(false);
             onLogin()
          // const { from } = location.state || { from: { pathname: '/' } };
@@ -59,12 +59,10 @@ function LoginPage({onLogin, isLogged}){
             value={value.password}
             onChange={handleChange}
           />
-          {/* <input
+          <input
             type="checkbox"
-            onChange={event => console.log(event.target.checked)}
-            checked={true}
+            onChange={event => isChecked(event.target.checked)}
           />
-          <input type="file" onChange={event => console.log(event)} /> */}
           <button
             className="loginForm-submit"
             type="submit"

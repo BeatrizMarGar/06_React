@@ -2,10 +2,10 @@ import Footer from "./footer";
 import Header from "./header";
 import Categories from "./categories";
 
-function Layout ({children}) {
+function Layout ({ children}) {
     return (
         <div classname="layout">
-            <Header />
+            <Header/>
             <Categories />
             <main>
                 <section>{children}</section>

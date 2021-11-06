@@ -3,6 +3,7 @@ import { CreateAd, AllAds } from "../service";
 import FormField from "../../common/formField";
 import { useState } from 'react';
 import { GetTags } from "../service";
+import Header from "../../layout/header";
 
 const options = [
     {
@@ -26,7 +27,8 @@ const options = [
 
 
 
-function NewAd(){
+function NewAd({onLogin}){
+  alert(onLogin)
     const [value, setValue] = useState ({name: '', sale: '', price: '', tags: '', photo: ''})
     const {select, changeselect} = useState()
     
@@ -64,6 +66,7 @@ function NewAd(){
 
     return (
         <Layout>
+            <Header/>
             <form onSubmit={handleSubmit}>
                 <FormField
                     type="text"

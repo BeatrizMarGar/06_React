@@ -5,9 +5,13 @@ import LoginPage from './components/auth/Login/loginPage';
 import { useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import NewAd from './components/Ads/NewAd/newAd';
+import { CheckTokenonInit, RemoveandLogout } from './utils/token';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false)
+  
+  const HasToken = CheckTokenonInit()
+  const [isLogged, setIsLogged] = useState(HasToken)
+  console.log(HasToken)
 
   const handleLogin = () => setIsLogged(true)
   return (

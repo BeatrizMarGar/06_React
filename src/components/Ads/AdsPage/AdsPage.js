@@ -4,13 +4,13 @@ import { AllAds } from "../service";
 import Layout from "../../layout/layout";
 import Ad from "../ad";
 
-function ShowAllAds({isLogged, history, ...prop}){
+function ShowAllAds({isLogged, close, history, ...prop}){
     const [ads, setAds] = useState([])
     useEffect(()=> {
         AllAds().then(setAds)
     }, [])
     return (
-        <Layout>
+        <Layout log={close}>
             <div>
                 <ul>
                     {ads.map(({id, ...ad}) => (

@@ -1,9 +1,15 @@
+import { logout } from "../auth/service"
 
-function Header ({}) {
+function Header ({logout}) {
+    const CloseSesion = event =>{
+        alert("AHORA")
+        //logout()
+    }
     return (
         <nav>
             <input placeholder="Busca en todas las categorias"></input>
-            <button> Iniciar sesión</button>
+            <button
+                onClick={CloseSesion}> Cerrar Sesión</button>
             <button> Publicar anuncio</button>
         </nav>
     )
