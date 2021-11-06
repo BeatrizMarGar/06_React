@@ -10,7 +10,11 @@ export const AllAds = () => {
     return client.get(url)
 }
 
-export const CreateAd = () => {
+export const CreateAd = ad => {
     const url = adv
-    return client.post(url)
+    return client.post(url, ad)
+}
+
+export const GetTags = () => {
+    const url = `${adv}/tags`
 }
