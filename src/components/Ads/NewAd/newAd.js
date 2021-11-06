@@ -2,6 +2,29 @@ import Layout from "../../layout/layout";
 import { CreateAd, AllAds } from "../service";
 import FormField from "../../common/formField";
 import { useState } from 'react';
+import { GetTags } from "../service";
+
+const options = [
+    {
+      label: "Apple",
+      value: "apple",
+    },
+    {
+      label: "Mango",
+      value: "mango",
+    },
+    {
+      label: "Banana",
+      value: "banana",
+    },
+    {
+      label: "Pineapple",
+      value: "pineapple",
+    },
+  ];
+  
+
+
 
 function NewAd(){
     const [value, setValue] = useState ({name: '', sale: '', price: '', tags: '', photo: ''})
@@ -63,23 +86,22 @@ function NewAd(){
                     type="radio"
                     name="sale"
                     value={value.sale}
-                    checked={Selector('true')}
                 ></input>
                 <input
                     type="radio"
                     name="sale"
                     value={value.sale}
-                    checked={Selector('false')}
                     >
-                    </input>
-                <FormField
-                    type="array"
-                    name="tags"
-                    label="tags"
-                    value={value.tags}
-                    onChange={handleChange}
+                </input>
+                <select 
+                name="tags"
+                type="array"
+                value={value.tags}
                 >
-                </FormField>
+                    {options.map((option) => (
+                    <option value={value.tags}>{option.label}</option>
+                    ))}
+                </select>
                 <input
                     type="file"
                     name="photo"
@@ -91,7 +113,7 @@ function NewAd(){
                 <button
                     type="submit"
                 >
-                    Log in
+                    Crear anuncio
                 </button>
             </form>
         </Layout>
