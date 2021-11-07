@@ -11,6 +11,7 @@ import Ad from './components/Ads/ad';
 import NotFound from './components/notfound/Notfound';
 import { AuthContextProvider } from './components/auth/context';
 import { AllAds } from './components/Ads/service';
+import Detail from './components/Ads/adDetail';
 
 const HasToken = CheckTokenonInit()
 
@@ -28,7 +29,7 @@ function App() {
             <NewAd/>
           </Route>
           <Route path="/adverts/:id">
-            <Ad />
+            <Detail />
           </Route>
           <Route path="/adverts">
             <ShowAllAds />

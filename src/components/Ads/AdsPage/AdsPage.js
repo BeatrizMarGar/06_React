@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
-import { AllAds, GetTags } from "../service";
+import { AllAds, SelectTags } from "../service";
 import Layout from "../../layout/layout";
 import Ad from "../ad";
 
 function ShowAllAds({isLogged, history, ...prop}){
     const [ads, setAds] = useState([])
-    const [filter, setFilter] = useState('all')
+    const [fil, setFilter] = useState()
+    let fin = [""]
     useEffect(()=> {
         AllAds().then(setAds)
     }, [])
+    let arr = []
 
     const filtros = (value) => {
-        setFilter(value)
-
+        ads.map(({tags, ...ad}) => {
+            if (tags == value){
+                arr.push(ad)
+                setAds(arr)
+            } else if (value == "tags"){
+                AllAds().then(setAds)
+            } else {
+            }
+            console.log(ads)    
+        })
+        
     }
 
     return (
@@ -21,14 +32,17 @@ function ShowAllAds({isLogged, history, ...prop}){
             <div>
                 <ul>
                     {
-                    
+                        ads.length ? (
                     ads.map(({id, ...ad}) => (
                         <li key={id}>
-                        <Link to={`/adverts/${id}`}>
+                        <Link to={`/adverts/${id}`} id={id}>
                             <Ad {...ad}/>
                         </Link>
                         </li>
                     ))
+                    ) : (
+                        <p>NO HAY ANUNCIOS PUBLICADOS</p>
+                    )
                     }
                 </ul>
             </div>

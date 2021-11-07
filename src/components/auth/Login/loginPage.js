@@ -41,7 +41,7 @@ function LoginPage({onLogin}){
       };
     return (
         <div className="loginPage">
-        <h1 className="loginPage-title">Log in to Twitter</h1>
+        <h1 className="loginPage-title">Log in to nodepop</h1>
         <form className="loginForm" onSubmit={handleSubmit}>
           <FormField
             type="text"

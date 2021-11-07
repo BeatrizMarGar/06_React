@@ -12,10 +12,28 @@ export const AllAds = () => {
 
 export const CreateAd = ad => {
     const url = adv
-    return client.post(url, ad)
+    const form = new FormData();
+    form.append("name", ad.name)
+    form.append("price", ad.price)
+    form.append("sale", ad.sale)
+    form.append("tags", [ad.tags])
+    form.append("photo", ad.photo)
+    console.log(ad)
+    return client.post(url, form)
 }
 
 export const GetTags = () => {
     const url = `${adv}/tags`
+    return client.get(url)
+}
+
+export const SelectTags = (tag) => {
+    console.log(tag)
+    const url = `${adv}?tag=${tag}`
+    return client.get(url)
+}
+
+export const GetDetails = (info) => {
+    const url = `${adv}/${info}`
     return client.get(url)
 }

@@ -8,7 +8,7 @@ import ErrorMSG from "../../error/error";
 
   
 function NewAd({onLogin}){
-    const [value, setValue] = useState ({name: '', sale: '', price: '', tags: '', photo: ''})
+    const [value, setValue] = useState ({name: '', sale: '', price: '', tags: [], photo:''})
     const {select, changeselect} = useState()
     const [logError, ErroronLogin] = useState('null')
     const [cat, setCats] = useState([])
@@ -17,8 +17,22 @@ function NewAd({onLogin}){
     }, [])
 
 
+    const selectedfilter = event => {
+      setValue(prevState => ({
+        ...prevState,
+        tags: event,
+      }));
+    };
     let errorLogin = ""
     
+    const handlePhoto = (event) =>{
+      setValue(prevState => ({
+        ...prevState,
+        [event.target.name]: event.target.file
+        
+      }))
+    }
+
     const handleChange = event => {
         setValue(prevState => ({
           ...prevState,
@@ -28,16 +42,14 @@ function NewAd({onLogin}){
          
       const handleSubmit = async (event) => {
         event.preventDefault();
-        // call to api - send value
-        //resetError();
-        
         try {
             await CreateAd(value);
-            console.log(AllAds)
+            console.log(value)
          // const { from } = location.state || { from: { pathname: '/' } };
          // history.replace(from);
           
         } catch (error) {
+          console.log(value)
           console.log(error)
           ErroronLogin(error.status);
         }
@@ -64,36 +76,42 @@ function NewAd({onLogin}){
                     onChange={handleChange}
                 >
                 </FormField>
-                <input
-                    type="radio"
-                    name="sale"
-                    value={value.sale}
-                ></input>
-                <input
-                    type="radio"
-                    name="sale"
-                    value={value.sale}
-                    >
-                </input>
+          <select
+            className="sale"
+            name="sale"
+            value={value.sale}
+            onChange={handleChange}
+            required
+          >
+            <option name="sale" value={true}>
+              Lo vendo
+            </option>
+            <option name="sale" value={false}>
+              lo compro
+            </option>
+          </select>
+
                 <select 
                 name="tags"
                 type="array"
                 value={value.tags}
+                onChange={event => selectedfilter(event.target.value)}
                 >
-                    {cat.map((option) => (
-                    <option value={value.tags}>{option}</option>
+                    {cat.map((tag) => (
+                    <option value={tag}>{tag}</option>
                     ))}
                 </select>
                 <input
-                    type="file"
-                    name="photo"
-                    label="photo"
-                    value={value.photo}
-                    onChange={handleChange}
-                >
-                </input>
+                  className="photo-input"
+                  name="photo"
+                  type="file"
+                  placeholder="elige la foto"
+                  onChange={handlePhoto}
+                />
                 <button
                     type="submit"
+
+
                 >
                     Crear anuncio
                 </button>
