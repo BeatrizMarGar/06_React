@@ -2,8 +2,7 @@ import { login } from "../service";
 import { useState, useMemo } from "react";
 import FormField from "../../common/formField";
 
-function LoginPage({onLogin, isLogged}){
-   // function LoginPage({onLogin, location, history}){
+function LoginPage({onLogin}){
     // declaro los cambios en usuario y contraseña
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +23,6 @@ function LoginPage({onLogin, isLogged}){
         
         try {
             await login(value, check);
-            alert(value, check)
             setIsLoading(false);
             onLogin()
          // const { from } = location.state || { from: { pathname: '/' } };
@@ -32,7 +30,7 @@ function LoginPage({onLogin, isLogged}){
           
         } catch (error) {
             console.log(error)
-            isLogged = false
+            //isLogged = false
             
          // setError(error);
          setIsLoading(false);
@@ -62,6 +60,7 @@ function LoginPage({onLogin, isLogged}){
           <input
             type="checkbox"
             onChange={event => isChecked(event.target.checked)}
+  
           />
           <button
             className="loginForm-submit"

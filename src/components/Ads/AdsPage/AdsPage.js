@@ -4,18 +4,22 @@ import { AllAds } from "../service";
 import Layout from "../../layout/layout";
 import Ad from "../ad";
 
-function ShowAllAds({isLogged, close, history, ...prop}){
+function ShowAllAds({isLogged, history, ...prop}){
     const [ads, setAds] = useState([])
     useEffect(()=> {
         AllAds().then(setAds)
     }, [])
+
+    
     return (
-        <Layout log={close}>
+        <Layout isLogged={isLogged}>
             <div>
                 <ul>
                     {ads.map(({id, ...ad}) => (
                         <li key={id}>
+                        <Link to={`http://localhost:3001/api/v1/adverts/${id}`}>
                             <Ad {...ad}/>
+                        </Link>
                         </li>
                     ))}
                 </ul>

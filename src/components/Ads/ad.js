@@ -1,5 +1,4 @@
 function Ad({...ad}){
-    console.log(ad.sale)
     return (
         <div>
             <h1>anuncio</h1>

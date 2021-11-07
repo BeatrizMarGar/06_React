@@ -3,13 +3,13 @@ import storage from "../components/auth/Login/storage";
 
 export function CheckTokenonInit(){
     const token = storage.get('token')
+    //const token = localStorage.getItem('Token')
     setAuthHeader(token)
-
-    if(token){
+    if(!token){
         console.log(token)
-        return true;
+        return false;
     } else {
-        return false
+        return true
     }
 }
 /*
@@ -17,6 +17,5 @@ export function RemoveandLogout(){
     
     removeAuthHeader()
     storage.remove('token')
-
 }
 */

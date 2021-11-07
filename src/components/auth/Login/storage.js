@@ -1,7 +1,6 @@
-
 const storage = {
     get(key) {
-      const value = localStorage.getItem(key);
+      const value = localStorage.getItem('Token');
       if (!value) {
         return null;
       }
