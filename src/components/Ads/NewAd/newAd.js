@@ -24,11 +24,7 @@ const options = [
     },
   ];
   
-
-
-
 function NewAd({onLogin}){
-  alert(onLogin)
     const [value, setValue] = useState ({name: '', sale: '', price: '', tags: '', photo: ''})
     const {select, changeselect} = useState()
     

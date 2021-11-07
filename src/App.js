@@ -8,39 +8,42 @@ import NewAd from './components/Ads/NewAd/newAd';
 import { CheckTokenonInit } from './utils/token';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Ad from './components/Ads/ad';
-
+import NotFound from './components/notfound/Notfound';
+import { AuthContextProvider } from './components/auth/context';
+import { AllAds } from './components/Ads/service';
 
 const HasToken = CheckTokenonInit()
 
 function App() {
   
   const [isLogged, setIsLogged] = useState(HasToken)
-  console.log(HasToken)
 
-  const handleLogin = () => {alert("ejecutando"); setIsLogged(true)}
+  const handleLogin = () => setIsLogged(true)
+
   return (
     <Router>
-      <Switch>
-      <Route path="/">
-        <div>
-          {
-          //isLogged ? <ShowAllAds/> : <LoginPage onLogin={handleLogin} />
-          isLogged ? <ShowAllAds isLogged={handleLogin}/> : <LoginPage onLogin={handleLogin} />
-          }
-        </div>
-      </Route>
-      <Route path="/adverts">
-        <ShowAllAds></ShowAllAds>
-      </Route>
-      <Route path="http://localhost:3001/api/v1/adverts/6673d065-21a4-4de6-be61-681e020903b5">
-        <Ad />
-      </Route>
-      <Route>
-        <p>página no encontrada</p>
-      </Route>
-      </Switch>
+      <AuthContextProvider value={isLogged, handleLogin}>
+        <Switch>
+          <Route path="/adverts/new">
+            <NewAd/>
+          </Route>
+          <Route path="/adverts/:id">
+            <Ad />
+          </Route>
+          <Route path="/adverts">
+            <ShowAllAds />
+          </Route>
+          <Route path="/">
+            <div>
+              {isLogged ? <ShowAllAds isLogged={handleLogin}/> : <LoginPage onLogin={handleLogin} />}
+            </div>
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </AuthContextProvider>
     </Router>
   )
 }
-
 export default App;

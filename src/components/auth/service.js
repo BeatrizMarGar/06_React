@@ -19,3 +19,9 @@ import storage from "./Login/storage";
         return Promise.reject(error);
     }
 };
+
+export const logout = () =>
+  Promise.resolve().then(() => {
+    removeAuthHeader();
+    storage.remove('auth');
+  });

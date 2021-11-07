@@ -12,10 +12,9 @@ export function CheckTokenonInit(){
         return true
     }
 }
-/*
+
 export function RemoveandLogout(){
     
     removeAuthHeader()
     storage.remove('token')
 }
-*/
