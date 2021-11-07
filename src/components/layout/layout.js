@@ -2,11 +2,11 @@ import Footer from "./footer";
 import Header from "./header";
 import Categories from "./categories";
 
-function Layout ({ children}) {
+function Layout ({filters, children}) {
     return (
         <div classname="layout">
             <Header/>
-            <Categories />
+            <Categories filters={filters}/>
             <main>
                 <section>{children}</section>
             </main>

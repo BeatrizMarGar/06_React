@@ -5,11 +5,9 @@ import { Link, useHistory } from "react-router-dom";
 function Header () {
 //  const [ logged, handleLogout] = useState(AuthContext)
 
-const history = useHistory();
 const handleLogout = async (event) =>{
     try {
         await logout('Token');
-        window.location.reload(false);
     } catch (error){
         console.log(error)
     }
@@ -17,9 +15,11 @@ const handleLogout = async (event) =>{
     return (
         <nav>
             <input placeholder="Busca en todas las categorias"></input>
-            <button onClick={handleLogout}> Cerrar Sesión</button>
+            <Link to="/login">
+                <button onClick={handleLogout}> Cerrar Sesión</button>                
+            </Link>
             <Link to='/adverts/new'>
-                <button > Publicar anuncio</button>
+                <button > Publicar anuncio</button> 
             </Link>
         </nav>
     )

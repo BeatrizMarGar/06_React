@@ -33,6 +33,9 @@ function App() {
           <Route path="/adverts">
             <ShowAllAds />
           </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
           <Route path="/">
             <div>
               {isLogged ? <ShowAllAds isLogged={handleLogin}/> : <LoginPage onLogin={handleLogin} />}

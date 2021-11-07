@@ -1,32 +1,23 @@
 import Layout from "../../layout/layout";
 import { CreateAd, AllAds } from "../service";
 import FormField from "../../common/formField";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GetTags } from "../service";
 import Header from "../../layout/header";
+import ErrorMSG from "../../error/error";
 
-const options = [
-    {
-      label: "Apple",
-      value: "apple",
-    },
-    {
-      label: "Mango",
-      value: "mango",
-    },
-    {
-      label: "Banana",
-      value: "banana",
-    },
-    {
-      label: "Pineapple",
-      value: "pineapple",
-    },
-  ];
   
 function NewAd({onLogin}){
     const [value, setValue] = useState ({name: '', sale: '', price: '', tags: '', photo: ''})
     const {select, changeselect} = useState()
+    const [logError, ErroronLogin] = useState('null')
+    const [cat, setCats] = useState([])
+    useEffect(()=> {
+        GetTags().then(setCats)
+    }, [])
+
+
+    let errorLogin = ""
     
     const handleChange = event => {
         setValue(prevState => ({
@@ -47,18 +38,10 @@ function NewAd({onLogin}){
          // history.replace(from);
           
         } catch (error) {
-            console.log(value)
-            console.log(error)
-         // setError(error);
+          console.log(error)
+          ErroronLogin(error.status);
         }
       };
-
-        function Selector (eso) {
-        //changeselect()
-        //alert(e.option.value)
-        alert(eso)
-      }
-
 
     return (
         <Layout>
@@ -97,8 +80,8 @@ function NewAd({onLogin}){
                 type="array"
                 value={value.tags}
                 >
-                    {options.map((option) => (
-                    <option value={value.tags}>{option.label}</option>
+                    {cat.map((option) => (
+                    <option value={value.tags}>{option}</option>
                     ))}
                 </select>
                 <input
@@ -114,6 +97,7 @@ function NewAd({onLogin}){
                 >
                     Crear anuncio
                 </button>
+                <ErrorMSG mensaje={logError} />
             </form>
         </Layout>
     )

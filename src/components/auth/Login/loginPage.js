@@ -1,12 +1,13 @@
 import { login } from "../service";
 import { useState, useMemo } from "react";
 import FormField from "../../common/formField";
-
+import ErrorMSG from "../../error/error";
 function LoginPage({onLogin}){
     // declaro los cambios en usuario y contraseña
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
     const [check, isChecked] = useState(false)
+    const [logError, ErroronLogin] = useState('null')
     
     const handleChange = event => {
         setValue(prevState => ({
@@ -30,7 +31,9 @@ function LoginPage({onLogin}){
           
         } catch (error) {
             console.log(error)
-            //isLogged = false
+            if (error.status == '401'){
+              ErroronLogin('Usuario/contraseña equivocada');
+            }
             
          // setError(error);
          setIsLoading(false);
@@ -70,6 +73,8 @@ function LoginPage({onLogin}){
           >
             Log in
           </button>
+          
+          <ErrorMSG mensaje={logError} />
         </form>
           {/*error && (
           <div onClick={resetError} className="loginPage-error">
@@ -77,6 +82,7 @@ function LoginPage({onLogin}){
           </div>
         )*/} 
       </div>
+      
   
     )
 

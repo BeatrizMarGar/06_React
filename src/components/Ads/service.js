@@ -17,4 +17,5 @@ export const CreateAd = ad => {
 
 export const GetTags = () => {
     const url = `${adv}/tags`
+    return client.get(url)
 }
