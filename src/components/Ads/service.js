@@ -42,3 +42,8 @@ export const GetDetails = (info) => {
 export const FilteredAds = (filter) => {
 
 }
+
+
+export const deleteAdvert = adId => {
+    return client.delete(`${adv}/${adId}`);
+  };

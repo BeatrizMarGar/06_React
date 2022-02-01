@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import FormField from "../../common/formField";
 import ErrorMSG from "../../error/error";
 import { useAuthContext } from "../context";
+import { useHistory } from "react-router-dom";
 
 function LoginPage({ location, history }){
     // declaro los cambios en usuario y contraseña
@@ -12,6 +13,7 @@ function LoginPage({ location, history }){
     const [check, isChecked] = useState(false)
     const [logError, ErroronLogin] = useState('null')
     const {handleLogin} = useAuthContext()
+    
 
     const handleChange = event => {
         setValue(prevState => ({
@@ -34,9 +36,8 @@ function LoginPage({ location, history }){
             await login(value, check)
             .then(setIsLoading(false))
             .then(handleLogin())
-            
-            const { from } = location.state || { from: { pathname: '/' } };
-            history.replace(from);
+
+            history.push('/adverts')
             
         } catch (error) {
             console.log(error)

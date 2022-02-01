@@ -54,7 +54,7 @@ function ShowAllAds({isLogged, history, ...prop}){
                             
                             filterAdverts.map(({id, ...ad}) => (
                                 <li key={ad.id}>
-                                <Link to={`/adverts/${id}`} id={id}>
+                                <Link id={id} to={`/adverts/${id}`} ad={ad}>
                                     <Ad {...ad}/>
                                 </Link>
                                 </li>

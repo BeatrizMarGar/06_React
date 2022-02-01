@@ -12,7 +12,7 @@ function Layout ({filters, children, fil}) {
             <Header/>
             <Categories filters={filters}/>
             <main>
-                <section>{fil, children}</section>
+                <section>{children}</section>
             </main>
             <Footer className="" />
         </div>
