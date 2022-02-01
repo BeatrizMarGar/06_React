@@ -9,7 +9,7 @@ import { filter_Adverts } from "./filters";
 const getFilt = () => storage.get('filters')
 const saveFilters = filterAdverts => storage.set('filters', filterAdverts);
 */
-function ShowAllAds({isLogged, history, ...prop}){
+function ShowAllAds({isLogged, history, searchAd, ...prop}){
     const arr = []
     const [ads, setAds] = useState([])
     const [filterAdverts, setfilters] = useState([])
@@ -42,8 +42,19 @@ function ShowAllAds({isLogged, history, ...prop}){
     } 
    }
 
+   function busqueda(value){
+       ads.map(({id, ...ad}) => {
+           let valueRegex = value.toLowerCase()
+           console.log(valueRegex)
+           if(ad.name == valueRegex){
+               arr.push(ad)
+           }
+            setfilters(arr)
+       })
+   }
+
     return (
-        <Layout isLogged={isLogged} filters={filtros}>
+        <Layout isLogged={isLogged} filters={filtros} searchAd={busqueda}>
             <div>
                 <ul>
                     {
@@ -51,9 +62,8 @@ function ShowAllAds({isLogged, history, ...prop}){
                         //filterAdverts.length ? (
                         ads.length ? (
                             //<AdList filterResult={ads} />
-                            
                             filterAdverts.map(({id, ...ad}) => (
-                                <li key={ad.id}>
+                                <li key={id}>
                                 <Link id={id} to={`/adverts/${id}`} ad={ad}>
                                     <Ad {...ad}/>
                                 </Link>

@@ -14,7 +14,6 @@ const handleLogout = async (event) =>{
 }
     return (
         <nav>
-            <input placeholder="Busca en todas las categorias"></input>
             <Link to="/login">
                 <button onClick={handleLogout}> Cerrar Sesión</button>                
             </Link>

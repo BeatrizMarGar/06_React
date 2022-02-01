@@ -3,14 +3,13 @@ import Header from "./header";
 import Categories from "./categories";
 import { useEffect } from "react";
 
-function Layout ({filters, children, fil}) {
-    console.log(fil)
+function Layout ({filters, children, fil, searchAd}) {
 
     useEffect(() => {}, [fil])
     return (
         <div className="layout">
             <Header/>
-            <Categories filters={filters}/>
+            <Categories filters={filters} searchAd={searchAd}/>
             <main>
                 <section>{children}</section>
             </main>
