@@ -92,13 +92,14 @@ function NewAd({onLogin}){
           </select>
 
                 <select 
+                multiple={false}
                 name="tags"
                 type="array"
                 value={value.tags}
                 onChange={event => selectedfilter(event.target.value)}
                 >
                     {cat.map((tag) => (
-                    <option value={tag}>{tag}</option>
+                    <option key={tag} value={tag}>{tag}</option>
                     ))}
                 </select>
                 <input

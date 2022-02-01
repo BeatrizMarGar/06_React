@@ -7,7 +7,8 @@ const adv = `${BaseURL}/adverts`
 
 export const AllAds = () => {
     const url = adv
-    return client.get(url)
+    const result = client.get(url)
+    return result
 }
 
 export const CreateAd = ad => {
@@ -36,4 +37,8 @@ export const SelectTags = (tag) => {
 export const GetDetails = (info) => {
     const url = `${adv}/${info}`
     return client.get(url)
+}
+
+export const FilteredAds = (filter) => {
+
 }

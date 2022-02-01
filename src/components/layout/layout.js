@@ -1,14 +1,18 @@
 import Footer from "./footer";
 import Header from "./header";
 import Categories from "./categories";
+import { useEffect } from "react";
 
-function Layout ({filters, children}) {
+function Layout ({filters, children, fil}) {
+    console.log(fil)
+
+    useEffect(() => {}, [fil])
     return (
-        <div classname="layout">
+        <div className="layout">
             <Header/>
             <Categories filters={filters}/>
             <main>
-                <section>{children}</section>
+                <section>{fil, children}</section>
             </main>
             <Footer className="" />
         </div>

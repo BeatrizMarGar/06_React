@@ -1,14 +1,18 @@
 import { login } from "../service";
+import T from 'prop-types'
 import { useState, useMemo } from "react";
 import FormField from "../../common/formField";
 import ErrorMSG from "../../error/error";
-function LoginPage({onLogin}){
+import { useAuthContext } from "../context";
+
+function LoginPage({ location, history }){
     // declaro los cambios en usuario y contraseña
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
     const [check, isChecked] = useState(false)
     const [logError, ErroronLogin] = useState('null')
-    
+    const {handleLogin} = useAuthContext()
+
     const handleChange = event => {
         setValue(prevState => ({
           ...prevState,
@@ -19,16 +23,21 @@ function LoginPage({onLogin}){
       const handleSubmit = async (event) => {
         event.preventDefault();
         // call to api - send value
+        /*
         setIsLoading(true);
+        login(value, check)
+        */
+        //onLogin()
+       // handleLog()
         //resetError();
-        
         try {
-            await login(value, check);
-            setIsLoading(false);
-            onLogin()
-         // const { from } = location.state || { from: { pathname: '/' } };
-         // history.replace(from);
-          
+            await login(value, check)
+            .then(setIsLoading(false))
+            .then(handleLogin())
+            
+            const { from } = location.state || { from: { pathname: '/' } };
+            history.replace(from);
+            
         } catch (error) {
             console.log(error)
             if (error.status == '401'){
@@ -62,7 +71,10 @@ function LoginPage({onLogin}){
           />
           <input
             type="checkbox"
+            name="savetoken"
+            value={value.savetoken}
             onChange={event => isChecked(event.target.checked)}
+            //onChange={handleChange}
   
           />
           <button
@@ -88,4 +100,11 @@ function LoginPage({onLogin}){
 
 }
 
+/*
+LoginPage.propTypes = {
+  location: T.shape({ state: T.shape({ from: T.object.isRequired }) })
+    .isRequired,
+  history: T.shape({ replace: T.func.isRequired }).isRequired,
+};
+*/
 export default LoginPage;

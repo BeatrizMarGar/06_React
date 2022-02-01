@@ -32,4 +32,11 @@ export const removeAuthHeader = () => {
 
 export default client;
 
+
+export const configureClient = ({ accessToken }) => {
+    if (accessToken) {
+        setAuthHeader(accessToken);
+    }
+  };
+
 // todo se utiliza en un servicio para autorizar usuarios

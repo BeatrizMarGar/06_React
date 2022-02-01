@@ -14,7 +14,6 @@ export function CheckTokenonInit(){
 }
 
 export function RemoveandLogout(){
-    
     removeAuthHeader()
     storage.remove('token')
 }
