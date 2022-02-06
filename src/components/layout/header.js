@@ -1,25 +1,37 @@
-import { useState } from "react/cjs/react.development"
-import AuthContext from "../auth/context"
-import { login, logout } from "../auth/service";
-import { Link, useHistory } from "react-router-dom";
-function Header () {
-//  const [ logged, handleLogout] = useState(AuthContext)
+import { useAuthContext } from "../auth/context";
+import { logout } from "../auth/service";
+import { Link } from "react-router-dom";
 
-const handleLogout = async (event) =>{
-    try {
-        await logout('Token');
-    } catch (error){
-        console.log(error)
+function Header () {
+
+    const {handleLogout} = useAuthContext()
+
+    const handleOut = async (event) =>{
+        try {
+            await logout().then(handleLogout);
+        } catch (error){
+            console.log(error)
+        }
     }
-}
     return (
         <nav>
-            <input placeholder="Busca en todas las categorias"></input>
             <Link to="/login">
-                <button onClick={handleLogout}> Cerrar Sesión</button>                
+            <button 
+                    onClick={(event) => {
+                        const confirmBox = window.confirm(
+                        "¿Seguro que quieres cerrar sesión?"
+                        )
+                        if (confirmBox === true) {
+                        {handleOut(event)}
+                        }
+                    }}>Cerrar Sesión
+            </button>                
             </Link>
             <Link to='/adverts/new'>
                 <button > Publicar anuncio</button> 
+            </Link>
+            <Link to='/adverts'>
+                <button > Ver todos los anuncios </button> 
             </Link>
         </nav>
     )

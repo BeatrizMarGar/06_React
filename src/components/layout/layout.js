@@ -2,11 +2,11 @@ import Footer from "./footer";
 import Header from "./header";
 import Categories from "./categories";
 
-function Layout ({filters, children}) {
+function Layout ({filters, children, ...props}) {
+    console.log(children)
     return (
-        <div classname="layout">
-            <Header/>
-            <Categories filters={filters}/>
+        <div className="layout">
+            <Header {...props}/>
             <main>
                 <section>{children}</section>
             </main>

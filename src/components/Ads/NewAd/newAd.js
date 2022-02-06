@@ -18,19 +18,13 @@ function NewAd({onLogin}){
 
 
     const selectedfilter = event => {
-      setValue(prevState => ({
-        ...prevState,
-        tags: event,
-      }));
+      setValue({ ...value, tags: event });
     };
+
     let errorLogin = ""
     
-    const handlePhoto = (event) =>{
-      setValue(prevState => ({
-        ...prevState,
-        [event.target.name]: event.target.file
-        
-      }))
+    const handlePhoto = (event) => {
+      setValue({ ...value, photo: event.target.files[0] });
     }
 
     const handleChange = event => {
@@ -57,7 +51,6 @@ function NewAd({onLogin}){
 
     return (
         <Layout>
-            <Header/>
             <form onSubmit={handleSubmit}>
                 <FormField
                     type="text"
@@ -87,20 +80,21 @@ function NewAd({onLogin}){
               Lo vendo
             </option>
             <option name="sale" value={false}>
-              lo compro
+              Lo compro
             </option>
           </select>
 
-                <select 
+          <select 
                 name="tags"
                 type="array"
                 value={value.tags}
+                multiple
                 onChange={event => selectedfilter(event.target.value)}
                 >
                     {cat.map((tag) => (
-                    <option value={tag}>{tag}</option>
+                    <option key={tag} value={tag}>{tag}</option>
                     ))}
-                </select>
+            </select>
                 <input
                   className="photo-input"
                   name="photo"
@@ -110,8 +104,6 @@ function NewAd({onLogin}){
                 />
                 <button
                     type="submit"
-
-
                 >
                     Crear anuncio
                 </button>

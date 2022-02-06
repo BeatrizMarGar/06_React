@@ -1,53 +1,48 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
-import { AllAds, SelectTags } from "../service";
+import { Link } from "react-router-dom";
+
+import { AllAds } from "../service";
 import Layout from "../../layout/layout";
 import Ad from "../ad";
+import AdvertFilter from "./Ads_control";
 
-function ShowAllAds({isLogged, history, ...prop}){
-    const [ads, setAds] = useState([])
-    const [fil, setFilter] = useState()
-    let fin = [""]
-    useEffect(()=> {
-        AllAds().then(setAds)
-    }, [])
-    let arr = []
+const EmptyList = () => (
+  <div style={{ textAlign: "center" }}>
+    <p>¡Sé el primero en publicar un anuncio!</p>
+    <Link to="/adverts/new">
+      <button>
+        Crear anuncio
+      </button>
+    </Link>
+  </div>
+);
 
-    const filtros = (value) => {
-        ads.map(({tags, ...ad}) => {
-            if (tags == value){
-                arr.push(ad)
-                setAds(arr)
-            } else if (value == "tags"){
-                AllAds().then(setAds)
-            } else {
-            }
-            console.log(ads)    
-        })
-        
-    }
+function ShowAllAds({ history, ...props }) {
+  const [adverts, setAdverts] = useState([]);
 
-    return (
-        <Layout isLogged={isLogged} filters={filtros}>
-            <div>
-                <ul>
-                    {
-                        ads.length ? (
-                    ads.map(({id, ...ad}) => (
-                        <li key={id}>
-                        <Link to={`/adverts/${id}`} id={id}>
-                            <Ad {...ad}/>
-                        </Link>
-                        </li>
-                    ))
-                    ) : (
-                        <p>NO HAY ANUNCIOS PUBLICADOS</p>
-                    )
-                    }
-                </ul>
-            </div>
-        </Layout>
-    )
+  useEffect(() => {
+    AllAds().then((adverts) => setAdverts(adverts))
+  }, []);
+
+
+  return (
+    <Layout {...props}>
+      <AdvertFilter filterAds={ads => setAdverts(ads)} selectedAds={adverts}/>
+      {adverts.length ? (
+        <ul >
+          {adverts.map(({ ...ad }) => (
+            <li key={ad.id}>
+                <Link id={ad.id} key={ad.id} to={`/adverts/${ad.id}`}>
+                    <Ad {...ad} />
+                </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <EmptyList />
+      )}
+    </Layout>
+  );
 }
 
-export default ShowAllAds
+export default ShowAllAds;

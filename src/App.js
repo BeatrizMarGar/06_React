@@ -1,53 +1,55 @@
 import './App.css';
-import Layout from './components/layout/layout';
 import ShowAllAds from './components/Ads/AdsPage/AdsPage';
 import LoginPage from './components/auth/Login/loginPage';
 import { useState } from 'react';
-import { useEffect } from 'react/cjs/react.development';
 import NewAd from './components/Ads/NewAd/newAd';
-import { CheckTokenonInit } from './utils/token';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Ad from './components/Ads/ad';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import NotFound from './components/notfound/Notfound';
-import { AuthContextProvider } from './components/auth/context';
-import { AllAds } from './components/Ads/service';
+import { AuthProvider } from './components/auth/context';
 import Detail from './components/Ads/adDetail';
+import PrivateRoute from './components/auth/PrivateRoute/PrivateRoute';
+import { useEffect } from 'react/cjs/react.development';
+//const HasToken = CheckTokenonInit()
 
-const HasToken = CheckTokenonInit()
-
-function App() {
+function App({HasToken}) {
   
   const [isLogged, setIsLogged] = useState(HasToken)
 
-  const handleLogin = () => setIsLogged(true)
+  const handleLogin = () => {setIsLogged(true); console.log(isLogged)}
+  const handleLogout = () => setIsLogged(false)
+
+  useEffect(() => {
+    console.log(isLogged)
+    console.log(HasToken)
+  }, [isLogged])
+  const authProps = { isLogged, handleLogin, handleLogout };
 
   return (
-    <Router>
-      <AuthContextProvider value={isLogged, handleLogin}>
+      <AuthProvider {...authProps}>
         <Switch>
-          <Route path="/adverts/new">
+          <PrivateRoute exact path="/adverts/new">
             <NewAd/>
-          </Route>
-          <Route path="/adverts/:id">
+          </PrivateRoute>
+          <PrivateRoute exact path="/adverts/:id">
             <Detail />
-          </Route>
-          <Route path="/adverts">
+          </PrivateRoute>
+          <PrivateRoute path="/adverts">
             <ShowAllAds />
+          </PrivateRoute>
+          <Route exact path="/login">
+            {isLogged ?
+              <ShowAllAds isLogged={handleLogin} /> :
+              <LoginPage onLogin = {handleLogin } onLogout = {handleLogout}/>
+            }
           </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/">
-            <div>
-              {isLogged ? <ShowAllAds isLogged={handleLogin}/> : <LoginPage onLogin={handleLogin} />}
-            </div>
+          <Route exact path="/">
+            <Redirect to="/adverts" />
           </Route>
           <Route>
             <NotFound />
           </Route>
         </Switch>
-      </AuthContextProvider>
-    </Router>
+      </AuthProvider>
   )
 }
 export default App;

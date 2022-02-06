@@ -3,19 +3,20 @@ import client, {
     setAuthHeader,
     removeAuthHeader,
 } from "../../api/client";
-import storage from "./Login/storage";
+import storage from "../../utils/storage";
 
   export const login = async (credentials, check) => {
-    const url = 'http://localhost:3001/api/auth/login';
+    const url = process.env.REACT_APP_API_BASE_URL + '/api/auth/login';
     try {
         const token = await client.post(url, credentials);
         setAuthHeader(token['accessToken']);
-        console.log(check, token['accessToken']) //si pongo token.data.accessToken, 
-                                 //TypeError: Cannot read properties of undefined (reading 'accessToken')
+        console.log(check, token['accessToken'])  //si pongo token.data.accessToken, 
+                                                  //TypeError: Cannot read properties of undefined (reading 'accessToken')
         if (check) {
             storage.set('auth', token['accessToken']); 
         }
     } catch (error) {
+        console.log(error)
         return Promise.reject(error);
     }
 };

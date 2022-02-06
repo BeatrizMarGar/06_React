@@ -1,3 +1,5 @@
+import { useEffect } from "react/cjs/react.development"
+
 function Ad({...ad}){
     console.log(ad.name)
     return (
@@ -10,5 +12,15 @@ function Ad({...ad}){
         </div>
     )
 }
+
+
+function AdList({adsv}){
+    console.log(adsv)
+    useEffect(() => {}, [adsv])
+    return (
+        <p>"hola"</p>
+    )
+}
+
 
 export default Ad;

@@ -1,14 +1,23 @@
 import { login } from "../service";
 import { useState, useMemo } from "react";
+
+import { PropTypes } from 'react'
 import FormField from "../../common/formField";
 import ErrorMSG from "../../error/error";
-function LoginPage({onLogin}){
+import { useAuthContext } from "../context";
+
+
+
+
+function LoginPage(  ){
     // declaro los cambios en usuario y contraseña
+    const { handleLogin } = useAuthContext()
     const [value, setValue] = useState ({email: '', password: ''})
     const [isLoading, setIsLoading] = useState(false);
     const [check, isChecked] = useState(false)
     const [logError, ErroronLogin] = useState('null')
-    
+
+
     const handleChange = event => {
         setValue(prevState => ({
           ...prevState,
@@ -16,18 +25,13 @@ function LoginPage({onLogin}){
         }));
       };
     
-      const handleSubmit = async (event) => {
+      const handleSubmit = async(event) => {
         event.preventDefault();
-        // call to api - send value
         setIsLoading(true);
-        //resetError();
         
         try {
-            await login(value, check);
-            setIsLoading(false);
-            onLogin()
-         // const { from } = location.state || { from: { pathname: '/' } };
-         // history.replace(from);
+            await login(value, check).then(handleLogin)
+              setIsLoading(false);
           
         } catch (error) {
             console.log(error)

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const client = axios.create({
     //dbURL: process.env.REACT_APP_API_BASE_URL,
-   dbURL: `https://localhost:3001`
+   dbURL: process.env.REACT_APP_API_BASE_URL
 })
 
 //interceptors: funciones que llama axios en cada request
@@ -29,6 +29,12 @@ export const setAuthHeader = token => {
 export const removeAuthHeader = () => {
     delete client.defaults.headers.common['Authorization']
 }
+
+export const configureClient = ({ accessToken }) => {
+    if (accessToken) {
+      setAuthHeader(accessToken);
+    }
+  };
 
 export default client;
 
