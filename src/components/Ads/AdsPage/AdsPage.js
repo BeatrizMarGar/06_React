@@ -8,8 +8,8 @@ import AdvertFilter from "./Ads_control";
 
 const EmptyList = () => (
   <div style={{ textAlign: "center" }}>
-    <p>¡Sé el primero en publicar un anuncio!</p>
-    <Link to="/adverts/new">
+    <p>Sea el primero en publicar un anuncio</p>
+    <Link to="/new-ad">
       <button>
         Crear anuncio
       </button>
@@ -21,9 +21,8 @@ function ShowAllAds({ history, ...props }) {
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
-    AllAds().then((adverts) => setAdverts(adverts))
+    AllAds().then((adverts) => setAdverts(adverts));
   }, []);
-
 
   return (
     <Layout {...props}>

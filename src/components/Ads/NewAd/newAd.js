@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react';
 import { GetTags } from "../service";
 import Header from "../../layout/header";
 import ErrorMSG from "../../error/error";
-
+import { useHistory } from "react-router-dom";
   
 function NewAd({onLogin}){
-    const [value, setValue] = useState ({name: '', sale: '', price: '', tags: [], photo:''})
+  const history = useHistory
+    const [value, setValue] = useState ({name: '', sale: '', price: '', tags: [], photo: null})
     const {select, changeselect} = useState()
     const [logError, ErroronLogin] = useState('null')
     const [cat, setCats] = useState([])
@@ -17,14 +18,25 @@ function NewAd({onLogin}){
     }, [])
 
 
-    const selectedfilter = event => {
-      setValue({ ...value, tags: event });
-    };
-
     let errorLogin = ""
     
     const handlePhoto = (event) => {
       setValue({ ...value, photo: event.target.files[0] });
+    }
+
+    const handleTags = (event) => {
+      if(event.target.checked){
+        setValue({ ...value, tags: [...value.tags, event.target.value] });
+      } else {
+        let alltags = value.tags
+        console.log(alltags)
+        let tagremove = alltags.indexOf(event.target.value)
+        alltags.splice(tagremove, 1);
+        console.log(alltags)
+        debugger
+        setValue({ ...value, tags: alltags });
+      }
+      console.log(value)
     }
 
     const handleChange = event => {
@@ -32,6 +44,7 @@ function NewAd({onLogin}){
           ...prevState,
           [event.target.name]: event.target.value,
         }));
+        console.log(value)
       };
          
       const handleSubmit = async (event) => {
@@ -39,8 +52,8 @@ function NewAd({onLogin}){
         try {
             await CreateAd(value);
             console.log(value)
-         // const { from } = location.state || { from: { pathname: '/' } };
-         // history.replace(from);
+         //   const { from } = location.state || { from: { pathname: '/' } };
+            history.replace('/');
           
         } catch (error) {
           console.log(value)
@@ -83,18 +96,17 @@ function NewAd({onLogin}){
               Lo compro
             </option>
           </select>
-
-          <select 
-                name="tags"
-                type="array"
-                value={value.tags}
-                multiple
-                onChange={event => selectedfilter(event.target.value)}
-                >
-                    {cat.map((tag) => (
-                    <option key={tag} value={tag}>{tag}</option>
-                    ))}
-            </select>
+            {cat.map(tag => (
+              <label key={tag}>
+                <input
+                  type="checkbox"
+                  name="tags"
+                  value={tag}
+                  onChange={handleTags}
+                />
+                {tag}
+              </label>
+            ))}
                 <input
                   className="photo-input"
                   name="photo"

@@ -1,12 +1,10 @@
 
-import { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 import { getFilteredAds } from "../service";
 
-function AdvertFilter({props, selectedAds}) {
+function AdvertFilter(props) {
   
   
-  const [prices, setPrices] = useState({min: 'd', max: ''})
   const [filter, setFilter] = useState({
     name: "",
     priceMin: "",
@@ -16,25 +14,6 @@ function AdvertFilter({props, selectedAds}) {
     photo: "",
   });
   
-  let allprices = []
-  let min = Math.min(...allprices)
-  let max = Math.max(...allprices)
-  console.log(min, max)
-
-
-  
-useEffect(() => {
-  
-  selectedAds.forEach(element => {
-    allprices.push(element.price)
-    return allprices
-  })
-}, [selectedAds])
-
-  const seenumbers = () => {
-    console.log(prices)
-  }
-
   const handleInput = (event) => {
     const filterName = event.target.name;
     const filterValue = event.target.value;
@@ -55,11 +34,9 @@ useEffect(() => {
 
   const handleFilter = async (event) => {
     event.preventDefault();
-    let adverts = props.selectedAds;
     try {
-      console.log(filter)
-      debugger
       let resolvedads = await getFilteredAds(filter);
+      console.log(resolvedads)
       props.filterAds(resolvedads);
     } catch (error) {
       console.error(error);
@@ -68,7 +45,6 @@ useEffect(() => {
 
   return (
     <form noValidate onSubmit={handleFilter}>
-      <p onClick={seenumbers}>vernumeroos</p>
       <input
         type="text"
         placeholder="Nombre del artículo"
@@ -82,12 +58,11 @@ useEffect(() => {
         placeholder="Precio mínimo"
         onChange={handleInput}
         name="priceMin"
-        min = {min}
+        min="0"
         value={filter.priceMin}
         required
       ></input>
       <input
-        max={max}
         name="priceMax"
         type="number"
         placeholder="Precio Máximo"
@@ -107,6 +82,7 @@ useEffect(() => {
         onChange={handleMultiSelect}
         multiple={true}
         value={filter.tags}
+        required
       >
       
         <option value="lifestyle">Lifestyle</option>
@@ -115,7 +91,7 @@ useEffect(() => {
         <option value="work">Work</option>
       </select>
 
-      <button type="submit">🔎 Filtrar</button>
+      <button type="submit">Filtrar</button>
     </form>
   );
 }

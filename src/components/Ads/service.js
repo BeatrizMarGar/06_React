@@ -17,7 +17,9 @@ export const CreateAd = ad => {
     form.append("price", ad.price)
     form.append("sale", ad.sale)
     form.append("tags", [ad.tags])
-    form.append("photo", ad.photo)
+    if (ad.photo != null){
+      form.append("photo", ad.photo)
+    }
     return client.post(url, form)
 }
 
@@ -46,7 +48,6 @@ export const getFilteredAds = async (filter) => {
       sale: filter.sale,
     };
     console.log(filterList)
-    debugger
 
     const formatFilter = (filter) => {
       const filterKeys = Object.keys(filter);
@@ -54,17 +55,19 @@ export const getFilteredAds = async (filter) => {
       for (const key of filterKeys) {
         const value = filter[key];
         if (value) {
-          debugger
           if (Array.isArray(value)) {
             for (const element of value) {
-                if(Array.isArray(element)) {
+              if(element == ''){
+debugger
+              } else {
+              if(Array.isArray(element)) {
                     for (const el of element) {
                       filteredQuery += `&${key}=${el}`;
                     }
                 } else {
                   filteredQuery += `&${key}=${element}`;
                 }
-              debugger
+              }
             }
           } else {
             filteredQuery += `&${key}=${filter[key]}`;
@@ -75,10 +78,8 @@ export const getFilteredAds = async (filter) => {
       return filteredQuery;
     };
     console.log(filterList)
-    debugger
     const url = `${BaseURL}/adverts?${formatFilter(filterList)}`;
     console.log(url)
-
     return client.get(url)
     
   };
