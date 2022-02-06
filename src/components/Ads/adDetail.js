@@ -17,18 +17,21 @@ function Detail () {
         
     }
 
-    const [detail, getdetails] = useState({price: "", name: "", tags: "", id: "", photo: "" })
+    const [detail, getdetails] = useState({price: "", name: "", tags: [], id: "", photo: "" })
     useEffect(()=> {
         GetDetails(ref).then(getdetails)
     }, [])
     //let string = JSON.stringify(detail)
     const imgRoute = process.env.REACT_APP_API_BASE_URL + detail.photo
+    let adtags = `${detail.tags}`
+    console.log(adtags)
     return (
         <Layout>
         <div key={detail.id}>
                 <p>{detail.name}</p>
                 <p>{detail.price}</p>
-                <p>{detail.tags}</p>
+                <p>{adtags}</p>
+                
                 {detail.photo ? <img src={imgRoute}></img> : <p>No hay imagen disponible de este artículo</p>}
                 <button 
                     onClick={() => {
@@ -40,10 +43,6 @@ function Detail () {
                         }
                     }}>¿Eliminar el anuncio?
                 </button>
-           
-            <div>
-                <Confirmation />
-            </div>
         </div>
         </Layout>
     )

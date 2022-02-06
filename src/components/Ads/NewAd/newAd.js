@@ -8,7 +8,7 @@ import ErrorMSG from "../../error/error";
 import { useHistory } from "react-router-dom";
   
 function NewAd({onLogin}){
-  const history = useHistory
+  const history = useHistory()
     const [value, setValue] = useState ({name: '', sale: '', price: '', tags: [], photo: null})
     const {select, changeselect} = useState()
     const [logError, ErroronLogin] = useState('null')
@@ -50,10 +50,10 @@ function NewAd({onLogin}){
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await CreateAd(value);
-            console.log(value)
+            let newad = await CreateAd(value);
+            console.log(newad)
          //   const { from } = location.state || { from: { pathname: '/' } };
-            history.replace('/');
+            history.replace('/adverts/' + newad.id);
           
         } catch (error) {
           console.log(value)

@@ -34,11 +34,11 @@ function App({HasToken}) {
             <Detail />
           </PrivateRoute>
           <PrivateRoute path="/adverts">
-            <ShowAllAds />
+            <ShowAllAds isLogged={handleLogin} />
           </PrivateRoute>
           <Route exact path="/login">
             {isLogged ?
-              <ShowAllAds isLogged={handleLogin} /> :
+              <Redirect to="/adverts" /> :
               <LoginPage onLogin = {handleLogin } onLogout = {handleLogout}/>
             }
           </Route>
