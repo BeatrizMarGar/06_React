@@ -1,6 +1,10 @@
+import Layout from "../layout/layout"
+
 function NotFound(){
     return (
-        <p>not found</p>
+        <Layout>
+        <p>¡Vaya! No tenemos lo que buscabas (404)</p>
+        </Layout>
     )
 }
 

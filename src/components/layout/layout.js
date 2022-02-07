@@ -1,6 +1,5 @@
 import Footer from "./footer";
 import Header from "./header";
-import Categories from "./categories";
 
 function Layout ({filters, children, ...props}) {
     return (

@@ -1,10 +1,15 @@
 
 import { useState, useEffect } from "react";
 import { getFilteredAds } from "../service";
+import { GetTags } from "../service";
 
 function AdvertFilter(props) {
   
-  
+  const [cat, setCats] = useState([])
+  useEffect(()=> {
+      GetTags().then(setCats)
+      debugger
+  }, [])
   const [filter, setFilter] = useState({
     name: "",
     priceMin: "",
@@ -14,6 +19,7 @@ function AdvertFilter(props) {
     photo: "",
   });
   
+
   const handleInput = (event) => {
     const filterName = event.target.name;
     const filterValue = event.target.value;
@@ -77,6 +83,7 @@ function AdvertFilter(props) {
         <option value="false">Compra</option>
       </select>
 
+
       <select
         name="tags"
         onChange={handleMultiSelect}
@@ -84,11 +91,15 @@ function AdvertFilter(props) {
         value={filter.tags}
         required
       >
+          {cat.map(tag => (
+            <option
+              key={tag}
+              name="tags"
+              value={tag}
+            >{tag}
+            </option>
+          ))}
       
-        <option value="lifestyle">Lifestyle</option>
-        <option value="mobile">Mobile</option>
-        <option value="motor">Motor</option>
-        <option value="work">Work</option>
       </select>
 
       <button type="submit">Filtrar</button>

@@ -45,7 +45,7 @@ function App({HasToken}) {
           <Route exact path="/">
             <Redirect to="/adverts" />
           </Route>
-          <Route>
+          <Route path={'/404'}>
             <NotFound />
           </Route>
         </Switch>

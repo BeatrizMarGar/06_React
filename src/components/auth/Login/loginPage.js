@@ -9,7 +9,7 @@ import { useAuthContext } from "../context";
 
 
 
-function LoginPage(  ){
+function LoginPage(){
     // declaro los cambios en usuario y contraseña
     const { handleLogin } = useAuthContext()
     const [value, setValue] = useState ({email: '', password: ''})
