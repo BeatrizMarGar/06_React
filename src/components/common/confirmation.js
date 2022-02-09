@@ -1,7 +1,7 @@
 import FormField from "./formField"
 import { useState } from "react";
 
-export function Confirmation(zz) {
+export function Confirmation() {
     
     const [value, setValue] = useState ({conf: false})
     const handleChange = event => {
