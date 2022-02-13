@@ -36,7 +36,7 @@ function Header () {
                  
             
             {getlog ? 
-                <div>
+                <div className="redbox">
                     <p>¿Seguro que quieres salir?</p>
                     <button onClick={handleOut}>SI</button>
                     <button onClick={handlehide}>NO</button>
