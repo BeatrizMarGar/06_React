@@ -37,11 +37,9 @@ function Detail () {
         }
         checkad()
     }, [])
-    console.log(detail)
     //let string = JSON.stringify(detail)
     const imgRoute = process.env.REACT_APP_API_BASE_URL + detail.photo
     let adtags = `${detail.tags}`
-    console.log(adtags)
     return (
         <Layout>
         <div key={detail.id}>

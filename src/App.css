@@ -1,3 +1,16 @@
 .app {
   background-color: blue;
 }
+
+.adlist{
+  list-style-type: none;
+}
+
+.adlist_single{
+  background-color: #FFF7F5;
+  width: 30vw;
+  height: 30vh;
+  padding: 3%;
+  margin: 5%;
+  position: relative
+}

@@ -4,7 +4,6 @@ import { useAuthContext } from '../context';
 const PrivateRoute = props => {
   const { isLogged } = useAuthContext();
   const location = useLocation();
-  console.log(isLogged)
   return isLogged ? (
     <Route {...props} />
   ) : (

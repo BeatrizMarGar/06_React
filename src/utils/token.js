@@ -6,7 +6,6 @@ export function CheckTokenonInit(){
     //const token = localStorage.getItem('Token')
     setAuthHeader(token)
     if(!token){
-        console.log(token)
         return false;
     } else {
         return true

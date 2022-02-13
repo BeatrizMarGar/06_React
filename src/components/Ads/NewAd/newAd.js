@@ -33,7 +33,6 @@ function NewAd({onLogin}){
         let tagremove = alltags.indexOf(event.target.value)
         alltags.splice(tagremove, 1);
         console.log(alltags)
-        debugger
         setValue({ ...value, tags: alltags });
       }
       console.log(value)

@@ -8,7 +8,6 @@ function AdvertFilter(props) {
   const [cat, setCats] = useState([])
   useEffect(()=> {
       GetTags().then(setCats)
-      debugger
   }, [])
   const [filter, setFilter] = useState({
     name: "",

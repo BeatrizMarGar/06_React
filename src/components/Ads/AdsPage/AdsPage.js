@@ -28,9 +28,9 @@ function ShowAllAds({ history, ...props }) {
     <Layout {...props}>
       <AdvertFilter filterAds={ads => setAdverts(ads)} selectedAds={adverts}/>
       {adverts.length ? (
-        <ul >
+        <ul className="adlist">
           {adverts.map(({ ...ad }) => (
-            <li key={ad.id}>
+            <li key={ad.id} className="adlist_single">
                 <Link id={ad.id} key={ad.id} to={`/adverts/${ad.id}`}>
                     <Ad {...ad} />
                 </Link>

@@ -29,7 +29,6 @@ export const GetTags = () => {
 }
 
 export const SelectTags = (tag) => {
-    console.log(tag)
     const url = `${adv}?tag=${tag}`
     return client.get(url)
 }
@@ -47,7 +46,6 @@ export const getFilteredAds = async (filter) => {
       price: [filter.priceMin, filter.priceMax],
       sale: filter.sale,
     };
-    console.log(filterList)
 
     const formatFilter = (filter) => {
       const filterKeys = Object.keys(filter);
@@ -58,7 +56,6 @@ export const getFilteredAds = async (filter) => {
           if (Array.isArray(value)) {
             for (const element of value) {
               if(element == ''){
-debugger
               } else {
               if(Array.isArray(element)) {
                     for (const el of element) {
@@ -74,12 +71,9 @@ debugger
           }
         }
       }
-      console.log(filteredQuery)
       return filteredQuery;
     };
-    console.log(filterList)
     const url = `${BaseURL}/adverts?${formatFilter(filterList)}`;
-    console.log(url)
     return client.get(url)
     
   };
