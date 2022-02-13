@@ -6,9 +6,6 @@ import FormField from "../../common/formField";
 import ErrorMSG from "../../error/error";
 import { useAuthContext } from "../context";
 
-
-
-
 function LoginPage(){
     // declaro los cambios en usuario y contraseña
     const { handleLogin } = useAuthContext()

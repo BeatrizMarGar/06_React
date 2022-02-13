@@ -1,36 +1,21 @@
-import FormField from "./formField"
-import { useState } from "react";
 
-export function Confirmation() {
-    
-    const [value, setValue] = useState ({conf: false})
-    const handleChange = event => {
-        setValue(prevState => ({
-          ...prevState,
-          [event.target.name]: event.target.value
-        }));
-    
-      };
+import { useLocation } from "react-router"
+import { deleteAdvert } from "../Ads/service";
+import { useHistory } from "react-router-dom"
+
+function Conf({advid, hide}){
+    const history = useHistory();
+    const handleDelete = () => {
+        deleteAdvert(advid)
+        history.push('/')
+        
+    }
     return (
         <div>
-            <form>
-                <FormField
-                    type="button"
-                    name="true"
-                    label='true'
-                    value={value.conf}
-                    onChange={handleChange}
-                    autofocus
-                />
-                <FormField
-                    type="button"
-                    name="false"
-                    label='false'
-                    value={value.conf}
-                    onChange={handleChange}
-                    autofocus
-                />
-            </form>
+            <button onClick={handleDelete}>SI</button>
+            <button onClick={hide}>NO</button>
+
         </div>
     )
 }
+export default Conf;

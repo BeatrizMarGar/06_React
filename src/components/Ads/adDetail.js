@@ -4,19 +4,24 @@ import { useLocation } from "react-router"
 import { useHistory } from "react-router-dom"
 import Layout from "../layout/layout"
 import { useParams } from "react-router"
-import { Confirmation } from "../common/confirmation"
+import Conf from "../common/confirmation"
+
 
 function Detail () {
+
+    const [del, setdelmsg] = useState(false)
+
+    const handlehide = () => setdelmsg(false)
+    const deletestate = () => {
+        setdelmsg(true)
+    }
+
     let loc = useLocation().pathname
     let ref = loc.replace('/adverts/','');
 
     const history = useHistory();
 
-    const handleDelete = () => {
-        deleteAdvert(detail.id)
-        history.push('/')
-        
-    }
+
     
   const advertId = useParams(history).advertId;
 
@@ -48,7 +53,8 @@ function Detail () {
                 <p>{adtags}</p>
                 
                 {detail.photo ? <img src={imgRoute}></img> : <p>No hay imagen disponible de este artículo</p>}
-                <button 
+                <button onClick={deletestate}
+                /*
                     onClick={() => {
                         const confirmBox = window.confirm(
                         "¿Seguro que quieres borrar el anuncio?"
@@ -56,8 +62,13 @@ function Detail () {
                         if (confirmBox === true) {
                         handleDelete()
                         }
-                    }}>¿Eliminar el anuncio?
+                    }}*/
+                    >¿Eliminar el anuncio?
                 </button>
+                {del ?
+                <Conf advid={detail.id} hide={handlehide} /> :
+                null
+                }
         </div>
         </Layout>
     )
