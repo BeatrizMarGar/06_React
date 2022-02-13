@@ -4,11 +4,10 @@ function Ad({...ad}){
     console.log(ad.name)
     return (
         <div id={ad.id}>
-            <p>anuncio</p>
-            <p>{ad.name}</p>
-            <p>{ad.sale ? 'se vende' : 'se busca'}</p>
-            <p>{ad.price}</p>
-            <p>{ad.tags}</p>
+            <h1>{ad.name}</h1>
+            <p>Este artículo {ad.sale ? 'se vende' : 'se busca'}</p>
+            <p>Vale {ad.price} €</p>
+            <p>Artículo etiquetado en {ad.tags}</p>
         </div>
     )
 }

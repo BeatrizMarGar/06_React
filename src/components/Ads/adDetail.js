@@ -48,7 +48,7 @@ function Detail () {
     return (
         <Layout>
         <div key={detail.id}>
-                <p>{detail.name}</p>
+                <h1>{detail.name}</h1>
                 <p>{detail.price}</p>
                 <p>{adtags}</p>
                 

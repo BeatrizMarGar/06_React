@@ -63,9 +63,11 @@ function LoginPage(){
           />
           <input
             type="checkbox"
+            id="check"
             onChange={event => isChecked(event.target.checked)}
   
           />
+          <label for="check">Recordar contraseña</label>
           <button
             className="loginForm-submit"
             type="submit"
